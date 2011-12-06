@@ -16,7 +16,16 @@ ofxColorPicker :: ofxColorPicker()
 
 ofxColorPicker :: ~ofxColorPicker()
 {
-	removeListeners();
+    try // this is a safe guard for a small bug in OF when removing events when the app quits.
+    {
+        removeListeners();
+        colorWheel.disableMouseEvents();
+        colorScaleBar.disableMouseEvents();
+    } 
+    catch( Poco::SystemException ) 
+    {  
+        // do nothing.
+    }  
 }
 
 //////////////////////////////////////////////
@@ -36,6 +45,7 @@ void ofxColorPicker :: init()
 	
 	bVisible			= true;
 	bEnabled			= true;
+    bAddedListeners     = false;
 	
 	mousePoint			= getPoint( colorAngle, colorRadius );
 
@@ -58,17 +68,27 @@ void ofxColorPicker :: exit( ofEventArgs &e )
 
 void ofxColorPicker :: addListeners() 
 {
+    if( bAddedListeners )
+        return;
+    
 	ofAddListener( ofEvents.update, this, &ofxColorPicker :: update	);
 	ofAddListener( ofEvents.draw,	this, &ofxColorPicker :: draw	);
 	ofAddListener( ofEvents.exit,	this, &ofxColorPicker :: exit	);
+    
+    bAddedListeners = true;
 }
 
 
 void ofxColorPicker :: removeListeners()
 {
+    if( !bAddedListeners )
+        return;
+    
 	ofRemoveListener( ofEvents.update, this, &ofxColorPicker :: update	);
 	ofRemoveListener( ofEvents.draw,   this, &ofxColorPicker :: draw	);
 	ofRemoveListener( ofEvents.exit,   this, &ofxColorPicker :: exit	);
+    
+    bAddedListeners = false;
 }
 
 

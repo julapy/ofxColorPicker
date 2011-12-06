@@ -111,6 +111,7 @@ private :
 	
 	bool			bVisible;
 	bool			bEnabled;
+    bool            bAddedListeners;
 	
 	ofColor			color;
 	ofPoint			colorPoint;
