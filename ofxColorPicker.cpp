@@ -71,9 +71,9 @@ void ofxColorPicker :: addListeners()
     if( bAddedListeners )
         return;
     
-	ofAddListener( ofEvents.update, this, &ofxColorPicker :: update	);
-	ofAddListener( ofEvents.draw,	this, &ofxColorPicker :: draw	);
-	ofAddListener( ofEvents.exit,	this, &ofxColorPicker :: exit	);
+	ofAddListener( ofEvents().update, this, &ofxColorPicker :: update	);
+	ofAddListener( ofEvents().draw,	this, &ofxColorPicker :: draw	);
+	ofAddListener( ofEvents().exit,	this, &ofxColorPicker :: exit	);
     
     bAddedListeners = true;
 }
@@ -84,9 +84,9 @@ void ofxColorPicker :: removeListeners()
     if( !bAddedListeners )
         return;
     
-	ofRemoveListener( ofEvents.update, this, &ofxColorPicker :: update	);
-	ofRemoveListener( ofEvents.draw,   this, &ofxColorPicker :: draw	);
-	ofRemoveListener( ofEvents.exit,   this, &ofxColorPicker :: exit	);
+	ofRemoveListener( ofEvents().update, this, &ofxColorPicker :: update	);
+	ofRemoveListener( ofEvents().draw,   this, &ofxColorPicker :: draw	);
+	ofRemoveListener( ofEvents().exit,   this, &ofxColorPicker :: exit	);
     
     bAddedListeners = false;
 }
