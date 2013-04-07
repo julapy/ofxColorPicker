@@ -662,6 +662,8 @@ void ofxColorPicker :: setColor( const ofColor& c )
 			colorAngle = da * 60 + 240;
 		}
 	}
+    
+    update();
 }
 
 ofColor ofxColorPicker :: getColor()
