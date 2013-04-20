@@ -358,6 +358,8 @@ void ofxColorPicker :: draw()
 {
 	if( !bVisible )
 		return;
+    
+    ofPushStyle();
 	
 	drawBackground();
 	drawColorWheel();
@@ -366,6 +368,8 @@ void ofxColorPicker :: draw()
 	drawColorRect();
 	
 	drawDebug();
+    
+    ofPopStyle();
 }
 
 void ofxColorPicker :: drawBackground()
