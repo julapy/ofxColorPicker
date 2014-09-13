@@ -51,15 +51,15 @@ public :
 	
 	void  update			();
 
-	void  setPos			( float x, float y );
-	void  setSize			( float x, float y, float w, float h );
+    void  setPos			( float x, float y );
+    void  setSize			( float x, float y, float w, float h );
 	
-	void  draw				();
-	void  draw				( float x, float y );
-	void  draw				( float x, float y, float w, float h );
+    void  draw				() const;
+    void  draw				( float x, float y ) const;
+    void  draw				( float x, float y, float w, float h ) const;
 
-	float getWidth			();
-	float getHeight			();
+    float getWidth			() const;
+    float getHeight			() const;
 	
 	void  show				();
 	void  hide				();
@@ -86,7 +86,7 @@ public :
 private :
 
 	void init				();
-	bool checkDimensions	( int x, int y, int w, int h );
+    bool checkDimensions	( int x, int y, int w, int h );
 	
 	void  update			( ofEventArgs &e );
 	void  draw				( ofEventArgs &e );
@@ -94,17 +94,20 @@ private :
 
 	void updateColor		();
 	void updateColorScale	();
+    bool updateGlColorWheel ();
+    void updateColorPoint   ();
+    void updateGlColorScaleBar (int rx, int ry, int rw, int rh);
 	
-	void drawBackground		();
-	void drawColorWheel		();
-	void drawColorPoint		();
-	void drawColorScaleBar	();
-	void drawColorRect		();
-	void drawDebug			();
+    void drawBackground		() const;
+    void drawColorWheel		() const;
+    void drawColorPoint		() const;
+    void drawColorScaleBar	() const;
+    void drawColorRect		() const;
+    void drawDebug			() const;
 
-	ofColor getCircularColor	( float angle, float radius, float scale );
-	ofPoint getPoint			( float a, float r );
-	PolCord getPolarCoordinate	( float x, float y );
+    ofColor getCircularColor	( float angle, float radius, float scale ) const;
+    const ofPoint getPoint			( float a, float r ) const;
+    PolCord getPolarCoordinate	( float x, float y ) const;
 
 	ofxMSAInteractiveObject colorWheel;
 	ofxMSAInteractiveObject colorScaleBar;
