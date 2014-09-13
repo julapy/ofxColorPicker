@@ -140,10 +140,10 @@ bool ofxColorPicker :: checkDimensions( int x, int y, int w, int h )
 		rectColorBox.width			= (int)( dimensions.width - colorWheelPad * 2 );
 		rectColorBox.height			= (int)( dimensions.height - ( rectColorBox.y - dimensions.y ) - colorWheelPad );
 		
-		colorWheel.setPos		( rectColorWheel.x,     rectColorWheel.y			);
+        colorWheel.setPosition		( rectColorWheel.x,     rectColorWheel.y			);
 		colorWheel.setSize		( rectColorWheel.width, rectColorWheel.height		);
 		
-		colorScaleBar.setPos	( rectColorScaleBar.x,     rectColorScaleBar.y		);
+        colorScaleBar.setPosition	( rectColorScaleBar.x,     rectColorScaleBar.y		);
 		colorScaleBar.setSize	( rectColorScaleBar.width, rectColorScaleBar.height	);
 		
 		return true;
@@ -181,7 +181,7 @@ void ofxColorPicker :: update()
 
 void ofxColorPicker :: updateColor ()
 {
-	if( colorWheel.isMouseDown() )
+    if( colorWheel.isMousePressed() )
 	{
 		mousePoint.x = colorWheel.getMouseX() - rectColorWheel.x;
 		mousePoint.y = colorWheel.getMouseY() - rectColorWheel.y;
@@ -197,7 +197,7 @@ void ofxColorPicker :: updateColor ()
 
 void ofxColorPicker :: updateColorScale()
 {
-	if( colorScaleBar.isMouseDown() )
+    if( colorScaleBar.isMousePressed() )
 	{
 		int relX = colorScaleBar.getMouseX() - rectColorScaleBar.x;
 		
