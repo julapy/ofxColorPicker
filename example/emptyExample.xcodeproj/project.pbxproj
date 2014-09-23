@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		67722BC419D1658C00EC8478 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67722BC219D1658C00EC8478 /* testApp.cpp */; };
-		67722BC819D165CA00EC8478 /* ofxColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67722BC619D165CA00EC8478 /* ofxColorPicker.cpp */; };
 		67722BD119D165E300EC8478 /* ofxMSAInteractiveObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67722BCF19D165E300EC8478 /* ofxMSAInteractiveObject.cpp */; };
+		67722BD619D1696900EC8478 /* ofxColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67722BD419D1696900EC8478 /* ofxColorPicker.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -65,10 +65,10 @@
 		67722BC119D1658C00EC8478 /* ColorRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorRect.h; sourceTree = "<group>"; };
 		67722BC219D1658C00EC8478 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		67722BC319D1658C00EC8478 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
-		67722BC619D165CA00EC8478 /* ofxColorPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxColorPicker.cpp; sourceTree = "<group>"; };
-		67722BC719D165CA00EC8478 /* ofxColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxColorPicker.h; sourceTree = "<group>"; };
 		67722BCF19D165E300EC8478 /* ofxMSAInteractiveObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSAInteractiveObject.cpp; sourceTree = "<group>"; };
 		67722BD019D165E300EC8478 /* ofxMSAInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAInteractiveObject.h; sourceTree = "<group>"; };
+		67722BD419D1696900EC8478 /* ofxColorPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxColorPicker.cpp; sourceTree = "<group>"; };
+		67722BD519D1696900EC8478 /* ofxColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxColorPicker.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -124,8 +124,7 @@
 		67722BC519D165B300EC8478 /* ofxColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				67722BC719D165CA00EC8478 /* ofxColorPicker.h */,
-				67722BC619D165CA00EC8478 /* ofxColorPicker.cpp */,
+				67722BD319D1696900EC8478 /* src */,
 			);
 			name = ofxColorPicker;
 			path = ..;
@@ -145,6 +144,15 @@
 			children = (
 				67722BCF19D165E300EC8478 /* ofxMSAInteractiveObject.cpp */,
 				67722BD019D165E300EC8478 /* ofxMSAInteractiveObject.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		67722BD319D1696900EC8478 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				67722BD519D1696900EC8478 /* ofxColorPicker.h */,
+				67722BD419D1696900EC8478 /* ofxColorPicker.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -325,8 +333,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67722BC819D165CA00EC8478 /* ofxColorPicker.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				67722BD619D1696900EC8478 /* ofxColorPicker.cpp in Sources */,
 				67722BC419D1658C00EC8478 /* testApp.cpp in Sources */,
 				67722BD119D165E300EC8478 /* ofxMSAInteractiveObject.cpp in Sources */,
 			);
