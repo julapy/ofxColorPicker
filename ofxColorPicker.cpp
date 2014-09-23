@@ -52,7 +52,7 @@ void ofxColorPicker :: init()
 	glColorWheel.radius		= 0;
 	glColorWheel.colorScale	= colorScale;
 	
-	setSize( 0, 0, COLOR_PICKER_DEFAULT_WIDTH, COLOR_PICKER_DEFAULT_HEIGHT );
+    setSize( 0, 0, COLOR_PICKER_DEFAULT_WIDTH, COLOR_PICKER_DEFAULT_HEIGHT );
 
 	colorWheel.enableMouseEvents();
 	colorScaleBar.enableMouseEvents();
@@ -152,12 +152,12 @@ bool ofxColorPicker :: checkDimensions( int x, int y, int w, int h )
 	return false;
 }
 
-float ofxColorPicker :: getWidth() 
+float ofxColorPicker :: getWidth() const
 {
 	return dimensions.width;
 }
 
-float ofxColorPicker :: getHeight()
+float ofxColorPicker :: getHeight() const
 { 
 	return dimensions.height; 
 }
@@ -342,19 +342,21 @@ void ofxColorPicker :: draw( ofEventArgs &e )
 	draw();
 }
 
-void ofxColorPicker :: draw( float x, float y, float w, float h ) 
+void ofxColorPicker :: draw( float x, float y, float w, float h ) const
 {
-	setSize( x, y, w, h );
+    ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
+    mutThis->setSize( x, y, w, h );
 	draw();
 }
 
-void ofxColorPicker :: draw( float x, float y )
+void ofxColorPicker :: draw( float x, float y ) const
 {
-	setPos( x, y );
+    ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
+    mutThis->setPos( x, y );
 	draw();
 }
 
-void ofxColorPicker :: draw()
+void ofxColorPicker :: draw() const
 {
 	if( !bVisible )
 		return;
@@ -372,7 +374,7 @@ void ofxColorPicker :: draw()
     ofPopStyle();
 }
 
-void ofxColorPicker :: drawBackground()
+void ofxColorPicker :: drawBackground() const
 {
 	int x = rectBackground.x;
 	int y = rectBackground.y;
@@ -391,54 +393,10 @@ void ofxColorPicker :: drawBackground()
 	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
 }
 
-void ofxColorPicker :: drawColorWheel()
+void ofxColorPicker :: drawColorWheel() const
 {
-	int x = rectColorWheel.x;
-	int y = rectColorWheel.y;
-	int w = rectColorWheel.width;
-	int h = rectColorWheel.height;
-	
-	bool b1 = glColorWheel.radius != colorWheelRadius;
-	bool b2 = glColorWheel.colorScale != colorScale;
-	bool b3 = glColorWheel.pos.x != rectColorWheel.x;
-	bool b4 = glColorWheel.pos.y != rectColorWheel.y;
-	
-	if( b1 || b2 || b3 || b4 )							// check if glColorWheel needs to be re-calculated.
-	{
-		glColorWheel.radius		= colorWheelRadius;
-		glColorWheel.colorScale	= colorScale;
-		glColorWheel.pos.x		= rectColorWheel.x;
-		glColorWheel.pos.y		= rectColorWheel.y;
-		
-		int cx = x + colorWheelRadius;
-		int cy = y + colorWheelRadius;
-		
-		for( int i=0; i<COLOR_WHEEL_RES+1; i++ )
-		{
-			int j = i % COLOR_WHEEL_RES;
-			float p = j / (float)COLOR_WHEEL_RES;
-			float a = p * TWO_PI;
-			
-			glColorWheel.points[ i * 4 + 0 ] = cx + cos( -a ) * glColorWheel.radius;
-			glColorWheel.points[ i * 4 + 1 ] = cy + sin( -a ) * glColorWheel.radius;
-			
-			glColorWheel.points[ i * 4 + 2 ] = cx;
-			glColorWheel.points[ i * 4 + 3 ] = cy;
-			
-			ofColor c;
-			c = getCircularColor( a * RAD_TO_DEG, 1.0, glColorWheel.colorScale );
-			
-			glColorWheel.colors[ i * 8 + 0 ] = c.r / 255.0;
-			glColorWheel.colors[ i * 8 + 1 ] = c.g / 255.0;
-			glColorWheel.colors[ i * 8 + 2 ] = c.b / 255.0;
-			glColorWheel.colors[ i * 8 + 3 ] = 1.0;
-			
-			glColorWheel.colors[ i * 8 + 4 ] = 1.0;
-			glColorWheel.colors[ i * 8 + 5 ] = 1.0;
-			glColorWheel.colors[ i * 8 + 6 ] = 1.0;
-			glColorWheel.colors[ i * 8 + 7 ] = 1.0;
-		}
-	}
+    ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
+    mutThis->updateGlColorWheel();
 	
 	glEnable( GL_SMOOTH );
 	
@@ -454,20 +412,60 @@ void ofxColorPicker :: drawColorWheel()
 	glDisableClientState( GL_COLOR_ARRAY );
 }
 
-void ofxColorPicker :: drawColorPoint()
-{
-	int x = rectColorWheel.x;
-	int y = rectColorWheel.y;
-	int w = rectColorWheel.width;
-	int h = rectColorWheel.height;
-	
-	colorPoint = getPoint( colorAngle, colorRadius );
-	colorPoint.x += x;
-	colorPoint.y += y;
-	
-	colorPoint.x = ofClamp( colorPoint.x, x, x + w );
-	colorPoint.y = ofClamp( colorPoint.y, y, y + h );
-	
+bool ofxColorPicker :: updateGlColorWheel() {
+    int x = rectColorWheel.x;
+    int y = rectColorWheel.y;
+
+    bool b1 = glColorWheel.radius != colorWheelRadius;
+    bool b2 = glColorWheel.colorScale != colorScale;
+    bool b3 = glColorWheel.pos.x != rectColorWheel.x;
+    bool b4 = glColorWheel.pos.y != rectColorWheel.y;
+
+    if( b1 || b2 || b3 || b4 )							// check if glColorWheel needs to be re-calculated.
+    {
+        glColorWheel.radius		= colorWheelRadius;
+        glColorWheel.colorScale	= colorScale;
+        glColorWheel.pos.x		= rectColorWheel.x;
+        glColorWheel.pos.y		= rectColorWheel.y;
+
+        int cx = x + colorWheelRadius;
+        int cy = y + colorWheelRadius;
+
+        for( int i=0; i<COLOR_WHEEL_RES+1; i++ )
+        {
+            int j = i % COLOR_WHEEL_RES;
+            float p = j / (float)COLOR_WHEEL_RES;
+            float a = p * TWO_PI;
+
+            glColorWheel.points[ i * 4 + 0 ] = cx + cos( -a ) * glColorWheel.radius;
+            glColorWheel.points[ i * 4 + 1 ] = cy + sin( -a ) * glColorWheel.radius;
+
+            glColorWheel.points[ i * 4 + 2 ] = cx;
+            glColorWheel.points[ i * 4 + 3 ] = cy;
+
+            ofColor c;
+            c = getCircularColor( a * RAD_TO_DEG, 1.0, glColorWheel.colorScale );
+
+            glColorWheel.colors[ i * 8 + 0 ] = c.r / 255.0;
+            glColorWheel.colors[ i * 8 + 1 ] = c.g / 255.0;
+            glColorWheel.colors[ i * 8 + 2 ] = c.b / 255.0;
+            glColorWheel.colors[ i * 8 + 3 ] = 1.0;
+
+            glColorWheel.colors[ i * 8 + 4 ] = 1.0;
+            glColorWheel.colors[ i * 8 + 5 ] = 1.0;
+            glColorWheel.colors[ i * 8 + 6 ] = 1.0;
+            glColorWheel.colors[ i * 8 + 7 ] = 1.0;
+        }
+        return true;
+    }
+    return false;
+}
+
+void ofxColorPicker :: drawColorPoint() const
+{	
+    ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
+    mutThis->updateColorPoint();
+
 	ofFill();
 	ofSetColor( 0, 0, 0 );
 	ofCircle( colorPoint.x, colorPoint.y, 4 );
@@ -481,7 +479,22 @@ void ofxColorPicker :: drawColorPoint()
 	ofCircle( colorPoint.x, colorPoint.y, 2 );
 }
 
-void ofxColorPicker :: drawColorScaleBar()
+void ofxColorPicker::updateColorPoint()
+{
+    int x = rectColorWheel.x;
+    int y = rectColorWheel.y;
+    int w = rectColorWheel.width;
+    int h = rectColorWheel.height;
+
+    colorPoint = getPoint( colorAngle, colorRadius );
+    colorPoint.x += x;
+    colorPoint.y += y;
+
+    colorPoint.x = ofClamp( colorPoint.x, x, x + w );
+    colorPoint.y = ofClamp( colorPoint.y, y, y + h );
+}
+
+void ofxColorPicker :: drawColorScaleBar() const
 {
 	int x = rectColorScaleBar.x;
 	int y = rectColorScaleBar.y;
@@ -494,44 +507,16 @@ void ofxColorPicker :: drawColorScaleBar()
 	ofRect( x, y, w, h );
 	
 	ofSetColor( 255, 255, 255 );
-	ofRect( x + 1, y + 1, w - 2, h - 2 );
-	
-	ofColor c;
-	c = getCircularColor( colorAngle, colorRadius, 1.0 );
-	
-	//--
-	
-	int rx, ry, rw, rh;
-	rx = x + 2;
-	ry = y + 2;
-	rw = w - 4;
-	rh = h - 4;
-	
-	glColorScaleBar.points[ 0 ] = rx;
-	glColorScaleBar.points[ 1 ] = ry;
-	glColorScaleBar.points[ 2 ] = rx;
-	glColorScaleBar.points[ 3 ] = ry + rh;
-	glColorScaleBar.points[ 4 ] = rx + rw;
-	glColorScaleBar.points[ 5 ] = ry + rh;
-	glColorScaleBar.points[ 6 ] = rx + rw;
-	glColorScaleBar.points[ 7 ] = ry;
-		
-	glColorScaleBar.colors[ 0 ]  = 0;
-	glColorScaleBar.colors[ 1 ]  = 0;
-	glColorScaleBar.colors[ 2 ]  = 0;
-	glColorScaleBar.colors[ 3 ]  = 1;
-	glColorScaleBar.colors[ 4 ]  = 0;
-	glColorScaleBar.colors[ 5 ]  = 0;
-	glColorScaleBar.colors[ 6 ]  = 0;
-	glColorScaleBar.colors[ 7 ]  = 1;
-	glColorScaleBar.colors[ 8 ]  = c.r / 255.0;
-	glColorScaleBar.colors[ 9 ]  = c.g / 255.0;
-	glColorScaleBar.colors[ 10 ] = c.b / 255.0;
-	glColorScaleBar.colors[ 11 ] = 1;
-	glColorScaleBar.colors[ 12 ] = c.r / 255.0;
-	glColorScaleBar.colors[ 13 ] = c.g / 255.0;
-	glColorScaleBar.colors[ 14 ] = c.b / 255.0;
-	glColorScaleBar.colors[ 15 ] = 1;
+    ofRect( x + 1, y + 1, w - 2, h - 2 );
+
+    int rx, ry, rw, rh;
+    rx = x + 2;
+    ry = y + 2;
+    rw = w - 4;
+    rh = h - 4;
+
+    ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
+    mutThis->updateGlColorScaleBar(rx, ry, rw, rh);
 	
 	glEnable( GL_SMOOTH );
 	
@@ -569,7 +554,41 @@ void ofxColorPicker :: drawColorScaleBar()
 	ofRect( rx + cx - bx, ry - by, cw + bx * 2, rh + by * 2 );
 }
 
-void ofxColorPicker :: drawColorRect()
+void ofxColorPicker :: updateGlColorScaleBar(int rx, int ry, int rw, int rh)
+{
+    ofColor c;
+    c = getCircularColor( colorAngle, colorRadius, 1.0 );
+
+    //--
+
+    glColorScaleBar.points[ 0 ] = rx;
+    glColorScaleBar.points[ 1 ] = ry;
+    glColorScaleBar.points[ 2 ] = rx;
+    glColorScaleBar.points[ 3 ] = ry + rh;
+    glColorScaleBar.points[ 4 ] = rx + rw;
+    glColorScaleBar.points[ 5 ] = ry + rh;
+    glColorScaleBar.points[ 6 ] = rx + rw;
+    glColorScaleBar.points[ 7 ] = ry;
+
+    glColorScaleBar.colors[ 0 ]  = 0;
+    glColorScaleBar.colors[ 1 ]  = 0;
+    glColorScaleBar.colors[ 2 ]  = 0;
+    glColorScaleBar.colors[ 3 ]  = 1;
+    glColorScaleBar.colors[ 4 ]  = 0;
+    glColorScaleBar.colors[ 5 ]  = 0;
+    glColorScaleBar.colors[ 6 ]  = 0;
+    glColorScaleBar.colors[ 7 ]  = 1;
+    glColorScaleBar.colors[ 8 ]  = c.r / 255.0;
+    glColorScaleBar.colors[ 9 ]  = c.g / 255.0;
+    glColorScaleBar.colors[ 10 ] = c.b / 255.0;
+    glColorScaleBar.colors[ 11 ] = 1;
+    glColorScaleBar.colors[ 12 ] = c.r / 255.0;
+    glColorScaleBar.colors[ 13 ] = c.g / 255.0;
+    glColorScaleBar.colors[ 14 ] = c.b / 255.0;
+    glColorScaleBar.colors[ 15 ] = 1;
+}
+
+void ofxColorPicker :: drawColorRect() const
 {
 	ofFill();
 
@@ -593,7 +612,7 @@ void ofxColorPicker :: drawColorRect()
 	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
 }
 
-void ofxColorPicker :: drawDebug ()
+void ofxColorPicker :: drawDebug () const
 {
 	
 }
@@ -681,7 +700,7 @@ ofColor ofxColorPicker :: getColor()
 	return c;
 }
 
-ofColor ofxColorPicker :: getCircularColor( float angle, float radius, float scale )
+ofColor ofxColorPicker :: getCircularColor( float angle, float radius, float scale ) const
 {
 	radius = MIN( 1.0, MAX( 0.0, radius ) );
 	
@@ -745,7 +764,7 @@ ofColor ofxColorPicker :: getCircularColor( float angle, float radius, float sca
 	return c;
 }
 
-ofPoint ofxColorPicker :: getPoint ( float a, float r )
+const ofPoint ofxColorPicker::getPoint( float a, float r ) const
 {
 	float cx = colorWheelRadius;
 	float cy = colorWheelRadius;
@@ -757,7 +776,7 @@ ofPoint ofxColorPicker :: getPoint ( float a, float r )
 	return p;
 }
 
-PolCord ofxColorPicker :: getPolarCoordinate ( float x, float y )
+PolCord ofxColorPicker :: getPolarCoordinate ( float x, float y ) const
 {
 	float cx = colorWheelRadius;
 	float cy = colorWheelRadius;
