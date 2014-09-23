@@ -7,8 +7,7 @@
  *
  */
 
-#ifndef OFX_COLOR_PICKER_H
-#define OFX_COLOR_PICKER_H
+#pragma once
 
 #include "ofMain.h"
 #include "ofxMSAInteractiveObject.h"
@@ -136,5 +135,3 @@ private :
 	GLColorWheel	glColorWheel;
 	GLColorScaleBar	glColorScaleBar;
 };
-
-#endif
