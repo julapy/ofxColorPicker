@@ -1,3 +1,11 @@
+//
+//  ofApp.cpp
+//  ofxColorPicker
+//
+//  Created by Lukasz Karluk on 13/08/2015.
+//
+//
+
 #include "ofApp.h"
 
 ///////////////////////////////////////////

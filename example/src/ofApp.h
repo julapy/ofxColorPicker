@@ -1,6 +1,12 @@
-#ifndef _TEST_APP
-#define _TEST_APP
+//
+//  ofApp.h
+//  ofxColorPicker
+//
+//  Created by Lukasz Karluk on 13/08/2015.
+//
+//
 
+#pragma once
 
 #include "ofMain.h"
 #include "ofxColorPicker.h"
@@ -29,5 +35,3 @@ public:
 	
 	ColorRect		rect;
 };
-
-#endif

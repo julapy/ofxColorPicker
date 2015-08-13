@@ -1,11 +1,10 @@
-/*
- *  ColorRect.h
- *  emptyExample
- *
- *  Created by lukasz karluk on 10/08/10.
- *  Copyright 2010 __MyCompanyName__. All rights reserved.
- *
- */
+//
+//  ColorRect.h
+//  ofxColorPicker
+//
+//  Created by Lukasz Karluk on 13/08/2015.
+//
+//
 
 #pragma once
 
