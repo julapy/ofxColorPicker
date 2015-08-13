@@ -16,16 +16,9 @@ ofxColorPicker :: ofxColorPicker()
 
 ofxColorPicker :: ~ofxColorPicker()
 {
-    try // this is a safe guard for a small bug in OF when removing events when the app quits.
-    {
-        removeListeners();
-        colorWheel.disableMouseEvents();
-        colorScaleBar.disableMouseEvents();
-    } 
-    catch( Poco::SystemException ) 
-    {  
-        // do nothing.
-    }  
+    removeListeners();
+    colorWheel.disableMouseEvents();
+    colorScaleBar.disableMouseEvents();
 }
 
 //////////////////////////////////////////////
@@ -386,11 +379,11 @@ void ofxColorPicker :: drawBackground() const
 	bx = by = 0;
 	ofFill();
 	ofSetColor( 113, 113, 113 );
-	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
+	ofDrawRectangle( x + bx, y + by, w - bx * 2, h - by * 2 );
 	
 	bx = by = 1;
 	ofSetColor( 232, 232, 232 );
-	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
+	ofDrawRectangle( x + bx, y + by, w - bx * 2, h - by * 2 );
 }
 
 void ofxColorPicker :: drawColorWheel() const
@@ -398,7 +391,7 @@ void ofxColorPicker :: drawColorWheel() const
     ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
     mutThis->updateGlColorWheel();
 	
-	glEnable( GL_SMOOTH );
+    ofSetSmoothLighting(true);
 	
 	glEnableClientState( GL_VERTEX_ARRAY );
 	glEnableClientState( GL_COLOR_ARRAY );
@@ -468,15 +461,15 @@ void ofxColorPicker :: drawColorPoint() const
 
 	ofFill();
 	ofSetColor( 0, 0, 0 );
-	ofCircle( colorPoint.x, colorPoint.y, 4 );
+	ofDrawCircle( colorPoint.x, colorPoint.y, 4 );
 	ofSetColor( 255, 255, 255 );
-	ofCircle( colorPoint.x, colorPoint.y, 2 );
+	ofDrawCircle( colorPoint.x, colorPoint.y, 2 );
 	
 	ofNoFill();
 	ofSetColor( 0, 0, 0 );
-	ofCircle( colorPoint.x, colorPoint.y, 4 );
+	ofDrawCircle( colorPoint.x, colorPoint.y, 4 );
 	ofSetColor( 255, 255, 255 );
-	ofCircle( colorPoint.x, colorPoint.y, 2 );
+	ofDrawCircle( colorPoint.x, colorPoint.y, 2 );
 }
 
 void ofxColorPicker::updateColorPoint()
@@ -504,10 +497,10 @@ void ofxColorPicker :: drawColorScaleBar() const
 	ofFill();
 	
 	ofSetColor( 149, 149, 149 );
-	ofRect( x, y, w, h );
+	ofDrawRectangle( x, y, w, h );
 	
 	ofSetColor( 255, 255, 255 );
-    ofRect( x + 1, y + 1, w - 2, h - 2 );
+    ofDrawRectangle( x + 1, y + 1, w - 2, h - 2 );
 
     int rx, ry, rw, rh;
     rx = x + 2;
@@ -518,7 +511,7 @@ void ofxColorPicker :: drawColorScaleBar() const
     ofxColorPicker * mutThis = const_cast<ofxColorPicker*>(this);
     mutThis->updateGlColorScaleBar(rx, ry, rw, rh);
 	
-	glEnable( GL_SMOOTH );
+    ofSetSmoothLighting(true);
 	
 	glEnableClientState( GL_VERTEX_ARRAY );
 	glEnableClientState( GL_COLOR_ARRAY );
@@ -543,7 +536,7 @@ void ofxColorPicker :: drawColorScaleBar() const
 	by = 4;
 	
 	ofSetColor( 149, 149, 149 );
-	ofRect( rx + cx - bx, ry - by, cw + bx * 2, rh + by * 2 );
+	ofDrawRectangle( rx + cx - bx, ry - by, cw + bx * 2, rh + by * 2 );
 
 	//-- white rect for handle. bx and by are border values.
 	
@@ -551,7 +544,7 @@ void ofxColorPicker :: drawColorScaleBar() const
 	by = 3;
 	
 	ofSetColor( 255, 255, 255 );
-	ofRect( rx + cx - bx, ry - by, cw + bx * 2, rh + by * 2 );
+	ofDrawRectangle( rx + cx - bx, ry - by, cw + bx * 2, rh + by * 2 );
 }
 
 void ofxColorPicker :: updateGlColorScaleBar(int rx, int ry, int rw, int rh)
@@ -601,15 +594,15 @@ void ofxColorPicker :: drawColorRect() const
 
 	bx = by = 0;
 	ofSetColor( 149, 149, 149 );
-	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
+	ofDrawRectangle( x + bx, y + by, w - bx * 2, h - by * 2 );
 
 	bx = by = 1;
 	ofSetColor( 255, 255, 255 );
-	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
+	ofDrawRectangle( x + bx, y + by, w - bx * 2, h - by * 2 );
 	
 	bx = by = 2;
 	ofSetColor( color.r, color.g, color.b, color.a );
-	ofRect( x + bx, y + by, w - bx * 2, h - by * 2 );
+	ofDrawRectangle( x + bx, y + by, w - bx * 2, h - by * 2 );
 }
 
 void ofxColorPicker :: drawDebug () const
