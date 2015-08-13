@@ -30,5 +30,5 @@ public:
     
     ofxColorPicker colorPicker0;
     ofxColorPicker colorPicker1;
-    ColorRect rect;
+    ofMesh meshGradient;
 };

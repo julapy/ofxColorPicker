@@ -8,10 +8,16 @@
 
 #include "ofMain.h"
 #include "ofApp.h"
-#include "ofAppGlutWindow.h"
 
-int main( ){
-    ofAppGlutWindow window;
-	ofSetupOpenGL(&window, 1280,720, OF_WINDOW);
-	ofRunApp( new ofApp());
+int main() {
+    
+    ofGLFWWindowSettings windowSettings;
+//    windowSettings.setGLVersion(3, 2);
+    windowSettings.width = 1280;
+    windowSettings.height = 720;
+    windowSettings.windowMode = OF_WINDOW;
+    
+    ofCreateWindow(windowSettings);
+    
+    ofRunApp(new ofApp());
 }

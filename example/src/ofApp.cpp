@@ -21,6 +21,18 @@ void ofApp::setup() {
 
     colorPicker1.setColorRadius(1.0);
 	colorPicker1.setColorAngle(0.83);
+    
+    meshGradient.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
+
+    meshGradient.addVertex(ofVec3f(0, 0));
+    meshGradient.addVertex(ofVec3f(ofGetWidth(), 0));
+    meshGradient.addVertex(ofVec3f(ofGetWidth(), ofGetHeight()));
+    meshGradient.addVertex(ofVec3f(0, ofGetHeight()));
+    
+    meshGradient.addColor(ofColor::white);
+    meshGradient.addColor(ofColor::white);
+    meshGradient.addColor(ofColor::white);
+    meshGradient.addColor(ofColor::white);
 }
 
 ///////////////////////////////////////////
@@ -36,11 +48,14 @@ void ofApp::update() {
 	
 	colorPicker0.update();
 	colorPicker1.update();
-	
-	rect.setCornerColor(colorPicker0.getColor(), 0);
-	rect.setCornerColor(colorPicker0.getColor(), 1);
-	rect.setCornerColor(colorPicker1.getColor(), 2);
-	rect.setCornerColor(colorPicker1.getColor(), 3);
+    
+    ofColor colorTop = colorPicker0.getColor();
+    ofColor colorBot = colorPicker1.getColor();
+    
+    meshGradient.setColor(0, colorTop);
+    meshGradient.setColor(1, colorTop);
+    meshGradient.setColor(2, colorBot);
+    meshGradient.setColor(3, colorBot);
 }
 
 ///////////////////////////////////////////
@@ -49,7 +64,7 @@ void ofApp::update() {
 
 void ofApp::draw() {
 
-    rect.draw();
+    meshGradient.draw();
 	
     int x = 20;
     int y = 0;
