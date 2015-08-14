@@ -10,7 +10,6 @@
 
 #include "ofMain.h"
 #include "ofxColorPicker.h"
-#include "ColorRect.h"
 
 class ofApp : public ofBaseApp
 {

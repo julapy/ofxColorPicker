@@ -12,7 +12,7 @@
 int main() {
     
     ofGLFWWindowSettings windowSettings;
-//    windowSettings.setGLVersion(3, 2);
+    windowSettings.setGLVersion(3, 2);
     windowSettings.width = 1280;
     windowSettings.height = 720;
     windowSettings.windowMode = OF_WINDOW;

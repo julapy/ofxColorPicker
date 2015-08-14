@@ -16,12 +16,27 @@ void ofApp::setup() {
     
 	ofSetFrameRate(60);
 	
+    //----------------------------------------------------------
 	colorPicker0.setColorRadius(1.0);
     colorPicker0.setColorAngle(0.5);
 
     colorPicker1.setColorRadius(1.0);
 	colorPicker1.setColorAngle(0.83);
     
+    int x = 20;
+    int y = 0;
+    int w = 150;
+    int h = 300;
+    int g = (int)((ofGetHeight() - h * 2) / 3); // gap.
+    y = g;
+    
+    colorPicker0.setSize(x, y, w, h);
+    
+    y = y + h + g;
+    
+    colorPicker1.setSize(x, y, w, h);
+
+    //----------------------------------------------------------
     meshGradient.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
 
     meshGradient.addVertex(ofVec3f(0, 0));
@@ -66,18 +81,8 @@ void ofApp::draw() {
 
     meshGradient.draw();
 	
-    int x = 20;
-    int y = 0;
-    int w = 150;
-    int h = 300;
-	int g = (int)((ofGetHeight() - h * 2) / 3); // gap.
-	y = g;
-	
-	colorPicker0.draw(x, y, w, h);
-	
-	y = y + h + g;
-	
-	colorPicker1.draw(x, y, w, h);
+    colorPicker0.draw();
+    colorPicker1.draw();
 }
 
 ///////////////////////////////////////////
